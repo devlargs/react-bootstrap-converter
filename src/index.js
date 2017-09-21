@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 import sample from '../sample'
 import Content from './components/content';
+import { Provider, connect } from 'react-redux';
+import store from './store';
+import Connect from './connect';
+
+console.log(Connect)
 
 export default class App extends Component {
     constructor(props) {
@@ -21,7 +26,7 @@ export default class App extends Component {
             this.setState({ json: parsed, convert: false })
         } catch (err) {
             if (err) {
-                toastr.error("Error. Wrong format.")
+                toastr.error("Error. Wrong json format.")
             }
         }
 
@@ -46,4 +51,12 @@ export default class App extends Component {
     }
 }
 
-render(<App />, document.getElementById('container'));
+let app = (
+    <Provider store={store}>
+        {/* <Connect> */}
+           <App/>
+        {/* </Connect> */}
+    </Provider>
+)
+
+render(app, document.getElementById('container'));
