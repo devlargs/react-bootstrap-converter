@@ -2,11 +2,8 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 import sample from '../sample'
 import Content from './components/content';
-import { Provider, connect } from 'react-redux';
+import { Provider } from 'react-redux';
 import store from './store';
-import Connect from './connect';
-
-console.log(Connect)
 
 export default class App extends Component {
     constructor(props) {
@@ -53,9 +50,7 @@ export default class App extends Component {
 
 let app = (
     <Provider store={store}>
-        {/* <Connect> */}
            <App/>
-        {/* </Connect> */}
     </Provider>
 )
 

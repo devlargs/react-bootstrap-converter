@@ -1,4 +1,6 @@
-export default (state = {}, action) => {
+export default (state = {
+    
+}, action) => {
     switch (action.type) {
         case 'MAIN_UPDATE':
             return state;
