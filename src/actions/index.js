@@ -1,3 +1,6 @@
-import * as main from './main';
-
-export default Object.assign({}, main)
+export const updateJson = (json) => {
+    return {
+        type: 'UPDATE_JSON',
+        payload: json
+    }
+}

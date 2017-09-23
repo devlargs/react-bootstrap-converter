@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 
-import main from './main';
+import json from './json'
 
-const rootReducer = combineReducers({ 
-    main
- });
+const allReducers = combineReducers({
+    json
+});
 
-export default rootReducer;
+export default allReducers;
