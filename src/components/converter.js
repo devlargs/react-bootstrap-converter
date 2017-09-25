@@ -10,25 +10,41 @@ class Converter extends Component {
         super(props);
 
         this.convert = this.convert.bind(this);
-        this.rename = this.rename.bind(this);
+        this.iterate = this.iterate.bind(this);
     }
 
-    rename(json){
-        // if(Object.keys(json).length != 0){
-        //     Object.keys(json).map((key, idx) => {
-        //         this.rename(key)
-        //     })
-        // }else{
-        //     console.log(json)
-        // }
+    iterate(json){        
+        for (var key in json) {
+            if(Object.keys(json[key]).length != 0){
+                if(typeof json[key] == 'object'){
+                    console.log(json[key]);
+                    this.iterate(json[key])
+                }else{
+                    console.log("Inside ", key + ':' + json[key])
+                }
+            }else{
+                console.log("Outside ", key + ':' + json[key])
+            }
+        }
     }
 
     convert() {
         var x2js = new X2JS();
         let json = x2js.xml2js(this.props.template.value);
         
+        var s = {
+            string: "3",
+            anotherString: "3",
+            isObject: {
+                b: {
+                    d :1
+                }, 
+                c: 2
+            }
+        }
+
         if (json) {
-            this.rename(json);
+            this.iterate(s);
             return (
                 <div style={{ marginTop: 10 }}>
                     <JSONPretty id="json-pretty" json={json}></JSONPretty>
