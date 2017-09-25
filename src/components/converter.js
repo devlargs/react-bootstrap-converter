@@ -13,17 +13,21 @@ class Converter extends Component {
         this.iterate = this.iterate.bind(this);
     }
 
-    iterate(json){        
+    iterate(json) {
         for (var key in json) {
-            if(Object.keys(json[key]).length != 0){
-                if(typeof json[key] == 'object'){
-                    console.log(json[key]);
-                    this.iterate(json[key])
-                }else{
-                    console.log("Inside ", key + ':' + json[key])
+            try {
+                if (Object.keys(json[key]).length != 0) {
+                    if (typeof json[key] == 'object') {
+                        console.log(json[key]);
+                        this.iterate(json[key])
+                    } else {
+                        console.log("Inside ", key + ':' + json[key])
+                    }
+                } else {
+                    console.log("Outside ", key + ':' + json[key])
                 }
-            }else{
-                console.log("Outside ", key + ':' + json[key])
+            } catch (err) {
+                console.log(err)
             }
         }
     }
@@ -31,15 +35,22 @@ class Converter extends Component {
     convert() {
         var x2js = new X2JS();
         let json = x2js.xml2js(this.props.template.value);
-        
+
         var s = {
-            string: "3",
-            anotherString: "3",
-            isObject: {
-                b: {
-                    d :1
-                }, 
-                c: 2
+            "id": "cd3958dd-4fa9-4b0d-98ef-9476d26e8ffd",
+            "inline": null,
+            "size": 6,
+            "content": {
+                "plugin": {
+                    "name": "matchlynx/content/image",
+                    "version": "0.0.1"
+                },
+                "state": {
+                    "src": "https://dummyimage.com/300x90/9e9c9e/fff",
+                    "height": "90px",
+                    "width": "90px",
+                    "variable_name": "Logo"
+                }
             }
         }
 
