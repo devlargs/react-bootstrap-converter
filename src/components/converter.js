@@ -18,17 +18,15 @@ class Converter extends Component {
             try {
                 if (Object.keys(json[key]).length != 0) {
                     if (typeof json[key] == 'object') {
-                        console.log(json[key]);
                         this.iterate(json[key])
                     } else {
-                        console.log("Inside ", key + ':' + json[key])
+                        if(key.charAt(0) == '_'){
+                            json[key.substr(1, key.length)] = json[key]
+                            delete json[key];
+                        }
                     }
-                } else {
-                    console.log("Outside ", key + ':' + json[key])
-                }
-            } catch (err) {
-                console.log(err)
-            }
+                } 
+            } catch (err) { }
         }
     }
 
@@ -36,26 +34,8 @@ class Converter extends Component {
         var x2js = new X2JS();
         let json = x2js.xml2js(this.props.template.value);
 
-        var s = {
-            "id": "cd3958dd-4fa9-4b0d-98ef-9476d26e8ffd",
-            "inline": null,
-            "size": 6,
-            "content": {
-                "plugin": {
-                    "name": "matchlynx/content/image",
-                    "version": "0.0.1"
-                },
-                "state": {
-                    "src": "https://dummyimage.com/300x90/9e9c9e/fff",
-                    "height": "90px",
-                    "width": "90px",
-                    "variable_name": "Logo"
-                }
-            }
-        }
-
         if (json) {
-            this.iterate(s);
+            this.iterate(json);
             return (
                 <div style={{ marginTop: 10 }}>
                     <JSONPretty id="json-pretty" json={json}></JSONPretty>
