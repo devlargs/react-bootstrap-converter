@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 
-import json from './json'
+import template from './template'
 
 const allReducers = combineReducers({
-    json
+    template
 });
 
 export default allReducers;

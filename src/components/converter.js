@@ -1,40 +1,29 @@
 import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux'; 
-import sample from '../../sample'
-import { updateJson } from '../actions';
+import { connect } from 'react-redux';
+import { updateTemplate } from '../actions/template';
 
 class Converter extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
 
         this.convert = this.convert.bind(this);
     }
-    
-    componentDidMount(){
-        this.props.updateJson(JSON.stringify(sample))
-        setTimeout(() => {
-            console.clear();
-        }, 0)
+
+    convert() {
+        
     }
 
-    convert(){
-        try {
-            var parsed = JSON.parse(this.props.json)
-        } catch (err){
-            toastr.error("Error. Not an Object.")
-        }
-    }
-
-    render(){
+    render() {
+        console.log(this.props)
         return (
             <div class="form-group">
-                <hr/>
+                <hr />
                 {
                     <div>
-                        <label for="comment">Enter JSON format to be converted:</label>
-                        <textarea value={this.props.json} class="form-control" rows="5" onChange={(e) => this.props.updateJson(e.target.value)}></textarea>
-                        <button onClick={this.convert} class="btn btn-success pull-right" style={{marginTop:10}}>Convert</button>
+                        <label for="comment">Enter bootstrap template to be converted:</label>
+                        <textarea class="form-control" value={this.props.template.value} rows="5" onChange={(e) => this.props.updateTemplate({ value: e.target.value })}></textarea>
+                        <button onClick={this.convert} class="btn btn-success pull-right" style={{ marginTop: 10 }}>Convert</button>
                     </div>
                 }
             </div>
@@ -44,13 +33,13 @@ class Converter extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        json: state.json
+        template: state.template
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators({
-        updateJson
+        updateTemplate
     }, dispatch)
 }
 

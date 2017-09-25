@@ -1,6 +1,6 @@
-export default function(state=null, action){
+export default function(state={value: ''}, action){
     switch(action.type){
-        case "UPDATE_JSON": 
+        case "UPDATE_TEMPLATE": 
             return action.payload;
         break;
     };
