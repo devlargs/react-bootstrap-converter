@@ -11,6 +11,7 @@ class Converter extends Component {
 
         this.convert = this.convert.bind(this);
         this.iterate = this.iterate.bind(this);
+        this.createContentCell = this.createContentCell.bind(this);
     }
 
     iterate(json) {
@@ -24,10 +25,35 @@ class Converter extends Component {
                         if(key.charAt(0) == '_'){
                             json[key.substr(1, key.length)] = json[key]
                             delete json[key];
+                            delete json['id'];
                         }
                     }
                 } 
             } catch (err) { }
+        }
+    }
+
+    createContentCell(json){
+        for (var keys in json){
+            switch(keys){
+                case 'variable': 
+                    json['state'] = variable(json[keys]);
+                    delete json['variable']; 
+                    break;
+                default: break;
+            }
+        }
+
+        function variable(q){
+            switch(q.name.toLowerCase()) {
+                case 'logo': return {
+                    src: (q.img.src) ? q.img.src : "https://dummyimage.com/300x90/9e9c9e/fff",
+                    variable_name: q.name,
+                    height: '90px',
+                    width: '90px'
+                }; break;
+                default: break;
+            }
         }
     }
 
@@ -37,6 +63,7 @@ class Converter extends Component {
 
         if (json) {
             this.iterate(json);
+            this.createContentCell(json);
             return (
                 <div style={{ marginTop: 10 }}>
                     <JSONPretty id="json-pretty" json={json}></JSONPretty>
