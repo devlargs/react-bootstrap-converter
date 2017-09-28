@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { updateTemplate } from '../actions/template';
-import uuid from 'uuid/v1'
 import JSONPretty from 'react-json-pretty';
+import guid from 'guid';
 
 class Converter extends Component {
     constructor(props) {
@@ -18,6 +18,7 @@ class Converter extends Component {
             try {
                 if (Object.keys(json[key]).length != 0) {
                     if (typeof json[key] == 'object') {
+                        json['id'] = guid.raw();
                         this.iterate(json[key])
                     } else {
                         if(key.charAt(0) == '_'){
